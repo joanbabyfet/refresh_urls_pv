@@ -6,6 +6,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from fake_useragent import UserAgent
 
+# 全局统计刷了多少访问量总数
+count = 0
+
 # 获取可用代理ip地址列表并返回
 def get_proxy():
     proxy_ips = []
@@ -58,6 +61,7 @@ def req_url(url, proxy, ua, windowsize):
     browser.close()
 
 def main():
+    global count
     url_list        = []
     ua_list         = []
     windowsize_list = []
@@ -83,8 +87,10 @@ def main():
                     ua = f'--user-agent={random.sample(ua_list, 1)[0]}'
                     windowsize = random.sample(windowsize_list, 1)[0]
                     pool.apply_async(req_url, (url, proxy, ua, windowsize)) # 走异步
+                    count = count + 1
             pool.close() # 没有任务需要加到队列里
             pool.join() # worker开始运行
+        print('当前已刷新浏览量总数:' + str(count))
 
 if __name__ == '__main__': # 主入口
     main()
