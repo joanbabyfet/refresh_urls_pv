@@ -1,0 +1,2 @@
+http://httpbin.org/ip
+http://httpbin.org/user-agent
