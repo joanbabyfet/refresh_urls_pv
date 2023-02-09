@@ -33,8 +33,8 @@ def init_browser(proxy, ua, windowsize):
         "profile.default_content_setting_values.notifications": 2 # 禁用浏览器弹窗
     })
 
-    browser = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options = options)
-    #browser = webdriver.Chrome('./chromedriver', options = options) # 实例化
+    #browser = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options = options)
+    browser = webdriver.Chrome(options = options) # 实例化
     browser.set_window_size(int(ws[0]), int(ws[1])) # 设置窗口大小
     browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", { # 解决 navigator.webdriver=true
     "source": """
